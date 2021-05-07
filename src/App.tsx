@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Scrollspy } from './Scrollspy'
+import { useRef } from 'react';
+import { Scrollspy } from './Scrollspy';
 
 const SIZE = 5;
 
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Scrollspy sectionRefs={sectionRefs}>
-        {() => (
+        {({ currentElementIndexInViewport }) => (
           <div>
             <ul
               data-cy="nav-wrapper"
@@ -29,7 +29,16 @@ function App() {
               }}>
               {new Array(SIZE).fill(0).map((_, i) => (
                 <li key={i}>
-                  <a href={`#section-${i}`} data-cy={`nav-item`}>
+                  <a
+                    href={`#section-${i}`}
+                    data-cy={`nav-item`}
+                    className={
+                      currentElementIndexInViewport === i ? 'active' : ''
+                    }
+                    style={{
+                      color:
+                        currentElementIndexInViewport === i ? '#f00' : '#222',
+                    }}>
                     section-{i}
                   </a>
                 </li>
@@ -40,8 +49,11 @@ function App() {
                 <div
                   id={`section-${i}`}
                   data-cy={`section-item`}
-                  ref={sectionRefs[i]}
                   key={i}
+                  ref={sectionRefs[i]}
+                  className={
+                    currentElementIndexInViewport === i ? 'active' : ''
+                  }
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
