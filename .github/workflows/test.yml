@@ -9,6 +9,9 @@ jobs:
 
       - name: E2E test
         uses: cypress-io/github-action@v2
+        width:
+          start: npm run start
+          wait-on: 'http://localhost:3000'
 
       - name: Component test
         uses: cypress-io/github-action@v2
